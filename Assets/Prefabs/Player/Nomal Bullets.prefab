@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5071157478086669480}
   - component: {fileID: 2007289978670218465}
   - component: {fileID: 9188745970008231466}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Nomal Bullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,3 +174,4 @@ MonoBehaviour:
   speed: 7.5
   theRB: {fileID: 2007289978670218465}
   impactEffect: {fileID: 332445600718851812, guid: cb6a11978062b3342a67b57e73f8ca94, type: 3}
+  damageToGive: 50
