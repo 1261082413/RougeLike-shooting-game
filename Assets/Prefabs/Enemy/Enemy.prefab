@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2155561955503375050}
   - component: {fileID: 1557401282199889632}
   - component: {fileID: 4261921977387323529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -34,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3480861226445225999}
+  - {fileID: 389406337477300204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &842985029275675116
@@ -49,7 +50,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e98b4fcf2e3866342bfbee234538805f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -70,11 +71,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theRB: {fileID: 1557401282199889632}
-  speed: 3
-  rangeToPlayer: 7
+  speed: 2
+  rangeToChasePlayer: 0
+  rangeToAttackPlayer: 0
   anim: {fileID: 842985029275675116}
-  move: {x: 0, y: 0, z: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
   health: 150
+  deathSplatter:
+  - {fileID: 3634943294696364967, guid: 81d4e8b33221cc445897603b508d28e8, type: 3}
+  - {fileID: 4422522663335005313, guid: ba6ae98fb861cc044ac7a4c5bf737cde, type: 3}
+  - {fileID: 4198471797610815497, guid: df18f2fd332e4e74b9a7b3cd4556168c, type: 3}
+  - {fileID: 6318013921395206287, guid: e4ddb626453300f4f9e6ab95634d74f2, type: 3}
+  hitEffect: {fileID: 8956079820074910797, guid: 8bb61337500516f42bfbda1e85e38090, type: 3}
+  shouldShoot: 0
+  bullet: {fileID: 2738566880265592975, guid: 5dde14e3898850841aa1d4786c3c105f, type: 3}
+  firePoint: {fileID: 0}
+  fireRate: 0.2
+  theBody: {fileID: 4939791145426584562}
 --- !u!50 &1557401282199889632
 Rigidbody2D:
   serializedVersion: 4
@@ -134,9 +147,40 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.53, y: -1.0715961}
+  m_Offset: {x: -0.00999999, y: -0.13731188}
   serializedVersion: 2
-  m_Radius: 0.3336151
+  m_Radius: 0.44731116
+--- !u!1 &5309229671395956395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389406337477300204}
+  m_Layer: 8
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &389406337477300204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5309229671395956395}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.19, y: 0.54, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8161391420857823005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5727235520642179445
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3480861226445225999}
   - component: {fileID: 4939791145426584562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy-body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 5727235520642179445}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.54, y: -0.88, z: 0.024082888}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -78,9 +78,29 @@ public class EnemyController : MonoBehaviour
 
     void AttackPlayer()
     {
-        // Implement different types of attacks here
-        // Example: Melee, Ranged, etc.
+       
+
+    if (shouldShoot)
+    {
+        // Ranged attack logic
+        if (fireCounter <= 0)
+        {
+            fireCounter = fireRate;  // Reset the fire counter
+            Instantiate(bullet, firePoint.position, firePoint.rotation);  // Create a bullet instance
+        }
+        else
+        {
+            fireCounter -= Time.deltaTime;  // Countdown to next shot
+        }
     }
+    else
+    {
+        // Placeholder for melee attack logic
+        // Implement melee attack logic here when ready
+    }
+}
+
+    
 
     void UpdateState()
     {
