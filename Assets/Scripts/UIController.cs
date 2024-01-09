@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     public static UIController instance;
     public Slider healthSlider;
     public TMP_Text healthText;
+    public GameObject deathScreen;
 
     private void Awake()
     {

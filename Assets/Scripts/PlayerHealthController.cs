@@ -38,6 +38,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             PlayerHealthController.instance.gameObject.SetActive(false);
 
+            UIController.instance.deathScreen.SetActive(true);
         }
 
         UIController.instance.healthSlider.value = currentHealth;
