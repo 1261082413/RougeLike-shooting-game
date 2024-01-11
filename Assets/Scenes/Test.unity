@@ -155,6 +155,7 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 5
   example: 
+  damageInvinclength: 1
 --- !u!4 &44002918
 Transform:
   m_ObjectHideFlags: 0
@@ -1067,6 +1068,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2155561955503375050, guid: faf38a36cafc177428c50607d09a1835, type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2155561955503375050, guid: faf38a36cafc177428c50607d09a1835, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 219037273}
@@ -1475,6 +1480,7 @@ MonoBehaviour:
   bulletToFire: {fileID: 6155791000229560525, guid: 37f234e72f4c1544a878e5e660ef13cf, type: 3}
   firePoint: {fileID: 677352095}
   timeBetweenShots: 0.3
+  bodySR: {fileID: 69190361}
 --- !u!4 &1592425866
 Transform:
   m_ObjectHideFlags: 0

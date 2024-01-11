@@ -12,6 +12,10 @@ public class PlayerHealthController : MonoBehaviour
 
     public string example;
 
+    public float damageInvinclength =1f;
+
+    private float invincCount;
+
     private void Awake()
     {
         instance = this;
@@ -29,11 +33,22 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(invincCount > 0){
+            invincCount -= Time.deltaTime;
+
+            if(invincCount <= 0){
+                PlayerController.instance.bodySR.color = new Color(PlayerController.instance.bodySR.color.r, PlayerController.instance.bodySR.color.g, PlayerController.instance.bodySR.color.b, 1f);
+
+
+            }
+        }
     }
     public void DamagePlayer()
     {
-        currentHealth-- ;
+        if(invincCount <= 0){
+            currentHealth-- ;
+            invincCount = damageInvinclength;
+            PlayerController.instance.bodySR.color = new Color(PlayerController.instance.bodySR.color.r, PlayerController.instance.bodySR.color.g, PlayerController.instance.bodySR.color.b, .5f);
         if(currentHealth <=0)
         {
             PlayerHealthController.instance.gameObject.SetActive(false);
@@ -43,5 +58,8 @@ public class PlayerHealthController : MonoBehaviour
 
         UIController.instance.healthSlider.value = currentHealth;
         UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+
+        }
+        
     }
 }
