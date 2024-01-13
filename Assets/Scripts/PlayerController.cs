@@ -100,6 +100,8 @@ public class PlayerController : MonoBehaviour
 
             anim.SetTrigger("dash");
 
+            PlayerHealthController.instance.MakeInvincible(dashInvinvibility);
+
             }
            
         }
