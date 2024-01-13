@@ -28,7 +28,9 @@ public class PlayerController : MonoBehaviour
 
     public float dashSpeed = 8f, dashLength = .5f,dashCooldown = 1f, dashInvinvibility = .5f;
 
-    private float dashCounter,dashCoolCounter;
+    public float dashCounter;
+
+    private float dashCoolCounter;
     private void Awake()
     {
         instance = this;
