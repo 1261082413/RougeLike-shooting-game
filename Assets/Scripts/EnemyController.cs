@@ -108,6 +108,7 @@ public class EnemyController : MonoBehaviour
         if (distanceToPlayer < rangeToAttackPlayer)
         {
             currentState = EnemyState.Attacking;
+            
         }
         else if (distanceToPlayer < rangeToChasePlayer)
         {

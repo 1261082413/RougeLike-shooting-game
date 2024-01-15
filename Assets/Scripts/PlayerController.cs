@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     public float dashSpeed = 8f, dashLength = .5f,dashCooldown = 1f, dashInvinvibility = .5f;
 
+    
+    [HideInInspector]
     public float dashCounter;
 
     private float dashCoolCounter;
