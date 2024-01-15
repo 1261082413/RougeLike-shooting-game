@@ -98,7 +98,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed792e10264885a43bf5e33b598f4a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brockenPiece: {fileID: 0}
+  brockenPieces:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  maxPieces: 5
 --- !u!61 &6170062473735179625
 BoxCollider2D:
   m_ObjectHideFlags: 0
