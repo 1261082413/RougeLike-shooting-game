@@ -1,3 +1,6 @@
+namespace Attack
+{
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,27 +23,20 @@ public class EnemyController : MonoBehaviour
     public GameObject hitEffect;
 
     public bool shouldShoot;
-    public GameObject bullet;
 
-    public Transform firePoint;
-    public float fireRate;
-
-    private float fireCounter;
-    private float patrolCounter;
-    private Vector3 patrolDestination;
+    // AttackComponent reference
+    public AttackComponent attackComponent;
 
     public SpriteRenderer theBody;
 
     private enum EnemyState { Idle, Patrolling, Chasing, Attacking }
     private EnemyState currentState = EnemyState.Idle;
 
-    // Start is called before the first frame update
     void Start()
     {
         // Initialize patrol destination or other variables if needed
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (currentState)
@@ -66,41 +62,26 @@ public class EnemyController : MonoBehaviour
     void Patrol()
     {
         // Implement patrol logic here
-        // Example: Move to a new random position after certain time
     }
 
     void ChasePlayer()
     {
         moveDirection = PlayerController.instance.transform.position - transform.position;
         moveDirection.Normalize();
-        transform.position += moveDirection * speed * Time.deltaTime;
+        theRB.MovePosition(transform.position + moveDirection * speed * Time.deltaTime);
     }
 
     void AttackPlayer()
     {
-       
-
-    if (shouldShoot)
-    {
-        // Ranged attack logic
-        if (fireCounter <= 0)
+        if (attackComponent != null)
         {
-            fireCounter = fireRate;  // Reset the fire counter
-            Instantiate(bullet, firePoint.position, firePoint.rotation);  // Create a bullet instance
+            attackComponent.HandleAttack(shouldShoot);
         }
         else
         {
-            fireCounter -= Time.deltaTime;  // Countdown to next shot
+            Debug.LogWarning("AttackComponent is not assigned on " + gameObject.name);
         }
     }
-    else
-    {
-        // Placeholder for melee attack logic
-        // Implement melee attack logic here when ready
-    }
-}
-
-    
 
     void UpdateState()
     {
@@ -108,7 +89,6 @@ public class EnemyController : MonoBehaviour
         if (distanceToPlayer < rangeToAttackPlayer)
         {
             currentState = EnemyState.Attacking;
-            
         }
         else if (distanceToPlayer < rangeToChasePlayer)
         {
@@ -140,9 +120,9 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             int selectedSplatter = Random.Range(0, deathSplatter.Length);
-            int rotation = Random.Range(0, 4);
-            Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, rotation * 90f));
+            Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
             Destroy(gameObject);
         }
     }
+}
 }

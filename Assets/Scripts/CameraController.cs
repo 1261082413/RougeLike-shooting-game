@@ -7,28 +7,33 @@ public class CameraController : MonoBehaviour
     public static CameraController instance;
 
     public float moveSpeed;
-
     public Transform target;
+
+    public Vector2 minCameraPos; // Minimum camera position
+    public Vector2 maxCameraPos; // Maximum camera position
 
     private void Awake()
     {
         instance = this;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (target != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position,new Vector3(target.position.x,target.position.y,target.position.z),moveSpeed*Time.deltaTime);
+            // Interpolate the camera's position towards the target's position
+            Vector3 targetPos = new Vector3(target.position.x, target.position.y, transform.position.z);
+            Vector3 smoothedPos = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+
+            // Clamp the camera's x and y position to keep it within the defined bounds
+            float clampedX = Mathf.Clamp(smoothedPos.x, minCameraPos.x, maxCameraPos.x);
+            float clampedY = Mathf.Clamp(smoothedPos.y, minCameraPos.y, maxCameraPos.y);
+
+            // Set the camera's position to the clamped position
+            transform.position = new Vector3(clampedX, clampedY, smoothedPos.z);
         }
-        
     }
+
     public void ChangeTarget(Transform newTarget)
     {
         target = newTarget;

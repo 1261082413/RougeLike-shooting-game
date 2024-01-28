@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Attack;
 public class NewBehaviourScript : MonoBehaviour
 {
     public float speed = 7.5f;
