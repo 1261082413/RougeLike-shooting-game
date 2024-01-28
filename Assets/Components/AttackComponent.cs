@@ -1,34 +1,51 @@
+namespace Attack
+{
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackComponent : MonoBehaviour
 {
-    [SerializeField] private bool isAutoEnabled = true;
-    private bool isEnabled = true;
+    public GameObject bullet;
+    public Transform firePoint;
+    public float fireRate;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        isEnabled = isActiveAndEnabled;
-    }
+    private float fireCounter;
 
-    // Update is called once per frame
-    void Update()
+    public void HandleAttack(bool shouldShoot)
     {
-        if(isEnabled)
+        if (shouldShoot)
         {
-            StartAttack();
+            RangedAttack();
+        }
+        else
+        {
+            MeleeAttack();
         }
     }
 
-    public virtual void StartAttack()
+    private void RangedAttack()
     {
-        Debug.Log("AttackComponent StartAttack");
+        if (fireCounter <= 0)
+        {
+            fireCounter = fireRate;
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
     }
 
-    public void EnableAttack(bool Value)
+    private void MeleeAttack()
     {
-        isEnabled = Value;
+        // Placeholder for melee attack logic
+        // Implement melee attack logic here when ready
+    }
+
+    private void Update()
+    {
+        if (fireCounter > 0)
+        {
+            fireCounter -= Time.deltaTime;
+        }
     }
 }
+}
+
