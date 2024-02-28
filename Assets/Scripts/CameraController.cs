@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps; // 修正拼写错误
 
 public class CameraController : MonoBehaviour
 {
@@ -9,33 +10,40 @@ public class CameraController : MonoBehaviour
     public float moveSpeed;
     public Transform target;
 
-    public Vector2 minCameraPos; // Minimum camera position
-    public Vector2 maxCameraPos; // Maximum camera position
+    public Tilemap theMap; 
 
-    private void Awake()
-    {
-        instance = this;
-    }
+    private Vector3 bottomLeftLimit;
+    private Vector3 topRightLimit;
 
-    void Update()
-    {
-        if (target != null)
-        {
-            // Interpolate the camera's position towards the target's position
-            Vector3 targetPos = new Vector3(target.position.x, target.position.y, transform.position.z);
-            Vector3 smoothedPos = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-
-            // Clamp the camera's x and y position to keep it within the defined bounds
-            float clampedX = Mathf.Clamp(smoothedPos.x, minCameraPos.x, maxCameraPos.x);
-            float clampedY = Mathf.Clamp(smoothedPos.y, minCameraPos.y, maxCameraPos.y);
-
-            // Set the camera's position to the clamped position
-            transform.position = new Vector3(clampedX, clampedY, smoothedPos.z);
-        }
-    }
+    private float halfHeight;
+    private float halfWidth;
+    
 
     public void ChangeTarget(Transform newTarget)
     {
-        target = newTarget;
+        target = newTarget; 
+    }
+    void Start()
+    {
+        instance = this; 
+
+        target = PlayerController.instance.transform;
+
+        halfHeight = Camera.main.orthographicSize;
+        halfWidth = halfHeight * Camera.main.aspect;
+        bottomLeftLimit = theMap.localBounds.min + new Vector3(halfWidth, halfHeight, 0f); 
+        topRightLimit = theMap.localBounds.max - new Vector3(halfWidth, halfHeight, 0f); 
+    }
+
+    void LateUpdate()
+    {
+        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+
+        
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, bottomLeftLimit.x, topRightLimit.x),
+            Mathf.Clamp(transform.position.y, bottomLeftLimit.y, topRightLimit.y),
+            transform.position.z 
+        );
     }
 }

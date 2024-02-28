@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
 
     private float activeMoveSpeed;
 
+    public string areaTransitionName;
+
+    
+
     public float dashSpeed = 8f, dashLength = .5f,dashCooldown = 1f, dashInvinvibility = .5f;
 
     
@@ -35,15 +39,28 @@ public class PlayerController : MonoBehaviour
     private float dashCoolCounter;
     private void Awake()
     {
-        instance = this;
+        if (instance==null)
+        {
+            instance = this;
+
+        }else
+        {
+            Destroy(gameObject);
+        }
+
+        
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
+       
         theCam = Camera.main;
 
         activeMoveSpeed = moveSpeed;
+        
     }
 
     // Update is called once per frame

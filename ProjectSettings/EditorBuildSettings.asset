@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Gutty Kreum/Dotonbori City Game Assets/Demo/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Main Scene.unity
+    guid: 8004e044da94d524fa406227f3db3edf
+  - enabled: 1
+    path: Assets/Scenes/School 1.unity
+    guid: cde1e6fcc351e974e84d094f944b1924
+  - enabled: 1
+    path: Assets/Scenes/School inter1.unity
+    guid: c6bf402925ba4e944bf78a5eadcef32e
   m_configObjects: {}
