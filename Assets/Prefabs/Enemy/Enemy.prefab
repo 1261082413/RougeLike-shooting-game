@@ -15,11 +15,7 @@ GameObject:
   - component: {fileID: 4261921977387323529}
   - component: {fileID: 876500545199157234}
   - component: {fileID: 5333503328776428029}
-<<<<<<< HEAD
   m_Layer: 8
-=======
-  m_Layer: 6
->>>>>>> 3a08d404a5f07901b4a9d77c08189d851902850e
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -190,7 +186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 389406337477300204}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3480861226445225999}
   - component: {fileID: 4939791145426584562}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Enemy-body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
