@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
        
-        theCam = Camera.main;
+        
 
         activeMoveSpeed = moveSpeed;
         
@@ -65,7 +65,9 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+
     {
+        theCam = Camera.main;
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
         

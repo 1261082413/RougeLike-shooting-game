@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
 
     void Patrol()
     {
-        // Implement patrol logic here
+        
     }
 
     void ChasePlayer()
@@ -83,9 +83,18 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, rangeToChasePlayer);
+    }
+
     void UpdateState()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
+        
+        
         if (distanceToPlayer < rangeToAttackPlayer)
         {
             currentState = EnemyState.Attacking;
@@ -93,6 +102,7 @@ public class EnemyController : MonoBehaviour
         else if (distanceToPlayer < rangeToChasePlayer)
         {
             currentState = EnemyState.Chasing;
+            
         }
         else
         {
