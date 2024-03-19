@@ -51,7 +51,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e98b4fcf2e3866342bfbee234538805f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -73,9 +73,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theRB: {fileID: 1557401282199889632}
-  speed: 1
-  rangeToChasePlayer: 5
-  rangeToAttackPlayer: 10
+  speed: 8
+  rangeToChasePlayer: 10
+  rangeToAttackPlayer: 6
   anim: {fileID: 842985029275675116}
   moveDirection: {x: 0, y: 0, z: 0}
   health: 150
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 2738566880265592975, guid: 5dde14e3898850841aa1d4786c3c105f, type: 3}
   firePoint: {fileID: 389406337477300204}
-  fireRate: 1.2
+  fireRate: 10
 --- !u!1 &5309229671395956395
 GameObject:
   m_ObjectHideFlags: 0

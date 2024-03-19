@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6170062473735179625}
   m_Layer: 0
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1836258653
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 4098156409588004937, guid: b1e514ee9c00f0c458e99f588dfa4cb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,12 +99,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brockenPieces:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5543136588538039150, guid: 4421b80a1c4bc254b8ca3b8809a4b291, type: 3}
+  - {fileID: 4274308938345248821, guid: a45caa9672d0e8042b07c4a47e990469, type: 3}
+  - {fileID: 1834639251426071650, guid: 765b26883a2126747af8bf428720fd34, type: 3}
+  - {fileID: 7337780219132931624, guid: c1fe3b0ac1ebe3142958b638c72382dc, type: 3}
+  - {fileID: 8084438800298309227, guid: 932cf67d0c332a54f8f3073092a1432a, type: 3}
+  - {fileID: 4868700385925557635, guid: d03f0b64cbdccdc439bb097d5ad4b185, type: 3}
   maxPieces: 5
 --- !u!61 &6170062473735179625
 BoxCollider2D:

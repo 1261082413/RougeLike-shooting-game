@@ -1,138 +1,131 @@
-namespace Attack
-{
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+namespace Attack
 {
-    public Rigidbody2D theRB;
-    public float speed;
-
-    public float rangeToChasePlayer;
-    public float rangeToAttackPlayer;
-
-    public Animator anim;
-
-    public Vector3 moveDirection;
-
-    public int health = 150;
-
-    public GameObject[] deathSplatter;
-    public GameObject hitEffect;
-
-    public bool shouldShoot;
-
-    // AttackComponent reference
-    public AttackComponent attackComponent;
-
-    public SpriteRenderer theBody;
-
-    private enum EnemyState { Idle, Patrolling, Chasing, Attacking }
-    private EnemyState currentState = EnemyState.Idle;
-
-    void Start()
+    public class EnemyController : MonoBehaviour
     {
-        // Initialize patrol destination or other variables if needed
-    }
+        public Rigidbody2D theRB;
+        public float speed;
 
-    void Update()
-    {
-        switch (currentState)
+        public float rangeToChasePlayer;
+        public float rangeToAttackPlayer;
+
+        public Animator anim;
+
+        public Vector3 moveDirection;
+
+        public int health = 150;
+
+        public GameObject[] deathSplatter;
+        public GameObject hitEffect;
+
+        public bool shouldShoot;
+
+        // AttackComponent reference
+        public AttackComponent attackComponent;
+
+        public SpriteRenderer theBody;
+
+        private enum EnemyState { Idle, Patrolling, Chasing, Attacking }
+        private EnemyState currentState = EnemyState.Idle;
+
+        void Start()
         {
-            case EnemyState.Idle:
-                // Wait or perform simple behavior
-                break;
-            case EnemyState.Patrolling:
-                Patrol();
-                break;
-            case EnemyState.Chasing:
-                ChasePlayer();
-                break;
-            case EnemyState.Attacking:
+            // Initialize patrol destination or other variables if needed
+        }
+
+        void Update()
+        {
+            switch (currentState)
+            {
+                case EnemyState.Idle:
+                    // Wait or perform simple behavior
+                    break;
+                case EnemyState.Patrolling:
+                    Patrol();
+                    break;
+                case EnemyState.Chasing:
+                case EnemyState.Attacking: // 同样的处理逻辑适用于追踪和攻击状态
+                    ChasePlayer();
+                    break;
+            }
+
+            if (currentState == EnemyState.Attacking)
+            {
                 AttackPlayer();
-                break;
+            }
+
+            UpdateState();
+            UpdateAnimation();
         }
 
-        UpdateState();
-        UpdateAnimation();
-    }
-
-    void Patrol()
-    {
-        
-    }
-
-    void ChasePlayer()
-    {
-        moveDirection = PlayerController.instance.transform.position - transform.position;
-        moveDirection.Normalize();
-        theRB.MovePosition(transform.position + moveDirection * speed * Time.deltaTime);
-    }
-
-    void AttackPlayer()
-    {
-        if (attackComponent != null)
+        void Patrol()
         {
-            attackComponent.HandleAttack(shouldShoot);
+            // Patrol logic here
         }
-        else
-        {
-            Debug.LogWarning("AttackComponent is not assigned on " + gameObject.name);
-        }
-    }
 
-    void OnDrawGizmosSelected()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, rangeToChasePlayer);
-    }
+        void ChasePlayer()
+        {
+            moveDirection = PlayerController.instance.transform.position - transform.position;
+            moveDirection.Normalize();
+            theRB.MovePosition(transform.position + moveDirection * speed * Time.deltaTime);
+        }
 
-    void UpdateState()
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
-        
-        
-        if (distanceToPlayer < rangeToAttackPlayer)
+        void AttackPlayer()
         {
-            currentState = EnemyState.Attacking;
+            if (attackComponent != null)
+            {
+                attackComponent.HandleAttack(shouldShoot);
+            }
+            else
+            {
+                Debug.LogWarning("AttackComponent is not assigned on " + gameObject.name);
+            }
         }
-        else if (distanceToPlayer < rangeToChasePlayer)
-        {
-            currentState = EnemyState.Chasing;
-            
-        }
-        else
-        {
-            currentState = EnemyState.Patrolling;
-        }
-    }
 
-    void UpdateAnimation()
-    {
-        if (moveDirection != Vector3.zero)
+        void OnDrawGizmosSelected()
         {
-            anim.SetBool("isMoving", true);
+            // Draw a yellow sphere at the transform's position
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, rangeToChasePlayer);
         }
-        else
+
+        void UpdateState()
         {
-            anim.SetBool("isMoving", false);
+            float distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
+
+            if (distanceToPlayer < rangeToAttackPlayer)
+            {
+                currentState = EnemyState.Attacking;
+            }
+            else if (distanceToPlayer < rangeToChasePlayer)
+            {
+                currentState = EnemyState.Chasing;
+            }
+            else
+            {
+                currentState = EnemyState.Patrolling;
+            }
         }
-    }
 
-    public void DamageEnemy(int damage)
-    {
-        health -= damage;
-        Instantiate(hitEffect, transform.position, transform.rotation);
-
-        if (health <= 0)
+        void UpdateAnimation()
         {
-            int selectedSplatter = Random.Range(0, deathSplatter.Length);
-            Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
-            Destroy(gameObject);
+            anim.SetBool("isMoving", moveDirection != Vector3.zero);
+        }
+
+        public void DamageEnemy(int damage)
+        {
+            health -= damage;
+            Instantiate(hitEffect, transform.position, transform.rotation);
+
+            if (health <= 0)
+            {
+                int selectedSplatter = Random.Range(0, deathSplatter.Length);
+                Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
+                Destroy(gameObject);
+            }
         }
     }
-}
 }
