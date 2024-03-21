@@ -122,8 +122,10 @@ namespace Attack
 
             if (health <= 0)
             {
+                int LayerEnemy = LayerMask.NameToLayer("Ground");
                 int selectedSplatter = Random.Range(0, deathSplatter.Length);
-                Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
+                var bloodSprite = Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
+                bloodSprite.gameObject.layer = LayerEnemy;
                 Destroy(gameObject);
             }
         }
