@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Tile Management.unity
+    guid: 8fd97e6c04b3a7b47871c258c70a1b5a
+  - enabled: 1
     path: Assets/Gutty Kreum/Dotonbori City Game Assets/Demo/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1

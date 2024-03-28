@@ -49,12 +49,14 @@ public class PlayerHealthController : MonoBehaviour
         if(invincCount <= 0){
             currentHealth-- ;
             invincCount = damageInvinclength;
+            AudioManager.instance.PlaySFX(11);
             PlayerController.instance.bodySR.color = new Color(PlayerController.instance.bodySR.color.r, PlayerController.instance.bodySR.color.g, PlayerController.instance.bodySR.color.b, .5f);
         if(currentHealth <=0)
         {
             PlayerHealthController.instance.gameObject.SetActive(false);
-
+            AudioManager.instance.PlaySFX(11);
             UIController.instance.deathScreen.SetActive(true);
+            AudioManager.instance.GameOver();
         }
 
         UIController.instance.healthSlider.value = currentHealth;

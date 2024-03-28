@@ -25,6 +25,7 @@ public class BreakableObject : MonoBehaviour
             if(PlayerController.instance.dashCounter > 0)
             {
                 Destroy(gameObject);
+                AudioManager.instance.PlaySFX(0);
 
                 int piecesToDrop = Random.Range(1,maxPieces);
 

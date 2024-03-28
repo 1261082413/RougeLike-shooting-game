@@ -47,7 +47,7 @@ namespace Attack
                     Patrol();
                     break;
                 case EnemyState.Chasing:
-                case EnemyState.Attacking: // 同样的处理逻辑适用于追踪和攻击状态
+                case EnemyState.Attacking: 
                     ChasePlayer();
                     break;
             }
@@ -127,6 +127,7 @@ namespace Attack
                 var bloodSprite = Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
                 bloodSprite.gameObject.layer = LayerEnemy;
                 Destroy(gameObject);
+                AudioManager.instance.PlaySFX(1);
             }
         }
     }
