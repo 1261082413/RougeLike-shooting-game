@@ -20,18 +20,18 @@ public class EnemyBullets : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
 {
     if (other.CompareTag("Player"))
     {
         PlayerHealthController.instance.DamagePlayer();
         Destroy(gameObject); 
     }
-    else if (other.CompareTag("Breakable")) 
+    else if (other.CompareTag("Breakable"))
     {
         Destroy(gameObject); 
     }
+    
 }
-
 
 }

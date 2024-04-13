@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class DialogActivator : MonoBehaviour
 {
     public string[] lines;
     private bool canActivate;
@@ -16,26 +16,20 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canActivate && Input.GetButtonDown("Fire1"))
+        if(canActivate && Input.GetButtonDown("Fire1") && !DialogManager.instance.dialogBox.activeInHierarchy)
         {
-            DialogManager.instance.ShowDialog(Lines);
+            DialogManager.instance.ShowDialog(lines);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.tag="Player")
+        if (other.tag=="Player")
         {
             canActivate = true;
         }
     
     }
-       private void OnTriggerEnter2D(Collider2D other)
-    {
+    
 
-        if (other.tag="Player")
-        {
-            canActivate = false;
-        }
-    }
 }

@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource[] sfx;
     // Start is called before the first frame update
-    private void awake()
+    private void Awake()
     {
         instance = this;
 

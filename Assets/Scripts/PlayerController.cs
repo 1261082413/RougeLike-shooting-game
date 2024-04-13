@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     public float dashCounter;
 
     private float dashCoolCounter;
+
+    public bool canMove = true;
     private void Awake()
     {
         if (instance==null)
@@ -67,7 +69,10 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
+        
         theCam = Camera.main;
+        if(canMove)
+        {
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
         
@@ -75,6 +80,11 @@ public class PlayerController : MonoBehaviour
 
         //transform.position += new Vector3(moveInput.x * Time.deltaTime * moveSpeed ,moveInput.y * Time.deltaTime * moveSpeed,0f);
         theRB.velocity = moveInput * activeMoveSpeed;
+        }else
+        {
+            theRB.velocity = Vector2.zero;
+        }
+        
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 screenPoint = theCam.WorldToScreenPoint(transform.localPosition);

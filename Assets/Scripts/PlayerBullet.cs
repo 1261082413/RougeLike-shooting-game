@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Attack;
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
     public float speed = 7.5f;
     public Rigidbody2D theRB;
@@ -15,7 +15,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Start()
     {
         Collider2D myCollider = GetComponent<Collider2D>();
-        foreach (var bullet in FindObjectsOfType<NewBehaviourScript>())
+        foreach (var bullet in FindObjectsOfType<PlayerBullet>())
         {
             Collider2D theirCollider = bullet.GetComponent<Collider2D>();
             if (theirCollider != myCollider)
