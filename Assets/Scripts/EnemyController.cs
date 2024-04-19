@@ -78,6 +78,7 @@ namespace Attack
             if (attackComponent != null)
             {
                 attackComponent.HandleAttack(shouldShoot);
+                AudioManager.instance.PlaySFX(14);
             }
             else
             {

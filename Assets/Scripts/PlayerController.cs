@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,6 +41,10 @@ public class PlayerController : MonoBehaviour
     private float dashCoolCounter;
 
     public bool canMove = true;
+
+    public int goldAmount;
+
+    public TextMeshProUGUI goldText;
     private void Awake()
     {
         if (instance==null)
@@ -49,6 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        goldAmount = 0;
 
         
         
@@ -168,5 +175,36 @@ public class PlayerController : MonoBehaviour
         }
 
 
+    }
+    public void AddGold(int goldToAdd)
+    {
+        goldAmount += goldToAdd;
+        UpdateGoldUI();
+    }
+    public bool SpendGold(int goldToSpend)
+    {
+        if (goldAmount >= goldToSpend)
+        {
+            goldAmount -= goldToSpend;
+            UpdateGoldUI();
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not enough gold");
+            return false;
+        }
+    }
+    private void UpdateGoldUI()
+    {
+        
+        if (goldText != null)
+        {
+            goldText.text = goldAmount.ToString(); 
+        }
+        else
+        {
+            Debug.LogWarning("GoldText reference not set in the PlayerController.");
+        }
     }
 }

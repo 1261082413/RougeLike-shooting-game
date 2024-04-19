@@ -15,6 +15,7 @@ public class DialogManager : MonoBehaviour
     public static DialogManager instance;
 
     private bool justStarted;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,39 +23,51 @@ public class DialogManager : MonoBehaviour
         //dialogText.text = dialogLines[currentLine];
     }
 
+    public void EndDialogAndOpenShop()
+    {
+        if (currentLine >= dialogLines.Length)
+        {
+            dialogBox.SetActive(false);
+            PlayerController.instance.canMove = true;
+            ShopMenu.instance.ToggleShopMenu();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(dialogBox.activeInHierarchy)
+        if (dialogBox.activeInHierarchy)
         {
-           if(Input.GetButtonUp("Fire1")) 
-           {
-            if(!justStarted)
+            if (Input.GetButtonUp("Fire1"))
             {
-            currentLine ++;
-            if(currentLine >= dialogLines.Length)
-            {
-                dialogBox.SetActive(false);
-            }else
-            {
-                dialogText.text = dialogLines[currentLine];
+                if (!justStarted)
+                {
+                    currentLine++;
+                    if (currentLine >= dialogLines.Length)
+                    {
+                        // 当对话结束时，打开商店菜单
+                        EndDialogAndOpenShop();
+                    }
+                    else
+                    {
+                        dialogText.text = dialogLines[currentLine];
+                    }
+                }
+                else
+                {
+                    justStarted = false;
+                    PlayerController.instance.canMove = false;
+                }
             }
-            }else
-            {
-                justStarted =false;
-            }
-            
-
-           }
         }
-    }
-    public void ShowDialog(string[] newLines)
+    }    public void ShowDialog(string[] newLines)
         {
             dialogLines =newLines;
             currentLine = 0;
             dialogText.text= dialogLines[0];
             dialogBox.SetActive(true);
             justStarted = true;
+            
         }
     
 }

@@ -17,6 +17,7 @@ public class AttackComponent : MonoBehaviour
         if (shouldShoot)
         {
             RangedAttack();
+            
         }
         else
         {
