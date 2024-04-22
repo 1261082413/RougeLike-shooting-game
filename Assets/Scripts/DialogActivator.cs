@@ -16,21 +16,42 @@ public class DialogActivator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canActivate && Input.GetButtonDown("Fire1") && !DialogManager.instance.dialogBox.activeInHierarchy)
-        {
-            DialogManager.instance.ShowDialog(lines);
-        }
+        //if(canActivate && Input.GetButtonDown("Fire1") && !DialogManager.instance.dialogBox.activeInHierarchy)
+        //{
+        //    DialogManager.instance.ShowDialog(lines);
+        //    Debug.Log("DialogActivator ShowDialog");
+        //}
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         if (other.tag=="Player")
         {
+<<<<<<< HEAD
             canActivate = true;
             Debug.Log("DialogActivator trigger");
+=======
+            //canActivate = true;
+            Debug.Log("DialogActivator OnTriggerEnter2D");
+
+            DialogManager.instance.bCanShowDialog = true;
+            DialogManager.instance.InitDialogMessages(lines);
+>>>>>>> 07f96653d795c3bea605285a74133e159629090b
         }
     
     }
-    
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            //canActivate = true;
+            Debug.Log("DialogActivator OnTriggerExit2D");
+
+            DialogManager.instance.bCanShowDialog = false;
+        }
+    }
+
+
 
 }

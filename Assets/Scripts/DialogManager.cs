@@ -14,12 +14,12 @@ public class DialogManager : MonoBehaviour
     public int currentLine;
     public static DialogManager instance;
 
-    private bool justStarted;
+    public bool bCanShowDialog;
     
     // Start is called before the first frame update
     void Start()
     {
-        instance =this;
+        instance = this;
         //dialogText.text = dialogLines[currentLine];
     }
 
@@ -36,38 +36,30 @@ public class DialogManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dialogBox.activeInHierarchy)
+        if (bCanShowDialog)
         {
             if (Input.GetButtonUp("Fire1"))
             {
-                if (!justStarted)
+                dialogBox.SetActive(true);
+                if (currentLine < dialogLines.Length)
                 {
+                    dialogText.text = dialogLines[currentLine];
                     currentLine++;
-                    if (currentLine >= dialogLines.Length)
-                    {
-                        // 当对话结束时，打开商店菜单
-                        EndDialogAndOpenShop();
-                    }
-                    else
-                    {
-                        dialogText.text = dialogLines[currentLine];
-                    }
+                    PlayerController.instance.canMove = false;
                 }
                 else
                 {
-                    justStarted = false;
-                    PlayerController.instance.canMove = false;
+                    EndDialogAndOpenShop();
+                    bCanShowDialog = false;
                 }
             }
         }
-    }    public void ShowDialog(string[] newLines)
-        {
-            dialogLines =newLines;
-            currentLine = 0;
-            dialogText.text= dialogLines[0];
-            dialogBox.SetActive(true);
-            justStarted = true;
-            
-        }
+    }
+
+    public void InitDialogMessages(string[] newLines)
+    {
+        dialogLines = newLines;
+        currentLine = 0;
+    }
     
 }
