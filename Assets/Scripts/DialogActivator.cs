@@ -27,6 +27,7 @@ public class DialogActivator : MonoBehaviour
         if (other.tag=="Player")
         {
             canActivate = true;
+            Debug.Log("DialogActivator trigger");
         }
     
     }
