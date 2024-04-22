@@ -30,7 +30,17 @@ public class PlayerController : MonoBehaviour
 
     public string areaTransitionName;
 
-    
+    public List<WeaponData> purchasedWeapons = new List<WeaponData>();
+
+    public void OnWeaponPurchased(WeaponData weaponInfo)
+    {
+        Debug.Log("receive message weapon purchased" + weaponInfo.uniqueID);
+        purchasedWeapons.Add(weaponInfo);
+        foreach(WeaponData weapon in purchasedWeapons)
+        {
+            Debug.Log("has weapon " + weapon.uniqueID);
+        }
+    }
 
     public float dashSpeed = 8f, dashLength = .5f,dashCooldown = 1f, dashInvinvibility = .5f;
 
@@ -69,7 +79,10 @@ public class PlayerController : MonoBehaviour
         
 
         activeMoveSpeed = moveSpeed;
-        
+
+        WeaponData InitWeapon = new WeaponData(100, 0, 20.0f, 20.0f);
+        purchasedWeapons.Add(InitWeapon);
+
     }
 
     // Update is called once per frame
