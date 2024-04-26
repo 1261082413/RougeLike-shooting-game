@@ -27,16 +27,13 @@ public class DialogActivator : MonoBehaviour
     {
         if (other.tag=="Player")
         {
-<<<<<<< HEAD
-            canActivate = true;
-            Debug.Log("DialogActivator trigger");
-=======
+
             //canActivate = true;
             Debug.Log("DialogActivator OnTriggerEnter2D");
 
             DialogManager.instance.bCanShowDialog = true;
             DialogManager.instance.InitDialogMessages(lines);
->>>>>>> 07f96653d795c3bea605285a74133e159629090b
+
         }
     
     }

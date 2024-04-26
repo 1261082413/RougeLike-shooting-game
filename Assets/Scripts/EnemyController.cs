@@ -116,20 +116,22 @@ namespace Attack
             anim.SetBool("isMoving", moveDirection != Vector3.zero);
         }
 
-        public void DamageEnemy(int damage)
-        {
-            health -= damage;
-            Instantiate(hitEffect, transform.position, transform.rotation);
+    public void DamageEnemy(int damage)
+    {
+        health -= damage;
+        Instantiate(hitEffect, transform.position, transform.rotation);
 
-            if (health <= 0)
-            {
-                int LayerEnemy = LayerMask.NameToLayer("Ground");
-                int selectedSplatter = Random.Range(0, deathSplatter.Length);
-                var bloodSprite = Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
-                bloodSprite.gameObject.layer = LayerEnemy;
-                Destroy(gameObject);
-                AudioManager.instance.PlaySFX(1);
-            }
+        if (health <= 0)
+        {
+            
+            PlayerController.instance.AddGold(10);
+
+            int selectedSplatter = Random.Range(0, deathSplatter.Length);
+            var bloodSprite = Instantiate(deathSplatter[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360f)));
+            bloodSprite.gameObject.layer = LayerMask.NameToLayer("Ground");
+            Destroy(gameObject);
+            AudioManager.instance.PlaySFX(1);
         }
     }
+}
 }

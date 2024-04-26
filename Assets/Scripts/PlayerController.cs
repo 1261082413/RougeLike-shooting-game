@@ -32,6 +32,21 @@ public class PlayerController : MonoBehaviour
 
     public List<WeaponData> purchasedWeapons = new List<WeaponData>();
 
+    public GameObject currentWeaponObj; 
+    public Transform weaponHolder; 
+
+    public void ChangeWeapon(WeaponData newWeaponData)
+    {
+        if(currentWeaponObj != null)
+        {
+            Destroy(currentWeaponObj);
+        }
+
+       
+        currentWeaponObj = Instantiate(newWeaponData.weaponPrefab, weaponHolder.position, weaponHolder.rotation);
+        currentWeaponObj.transform.SetParent(weaponHolder);
+    }
+
     public void OnWeaponPurchased(WeaponData weaponInfo)
     {
         Debug.Log("receive message weapon purchased" + weaponInfo.uniqueID);
@@ -65,7 +80,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        goldAmount = 0;
+        goldAmount = 500;
 
         
         
@@ -80,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
         activeMoveSpeed = moveSpeed;
 
-        WeaponData InitWeapon = new WeaponData(100, 0, 20.0f, 20.0f);
+        WeaponData InitWeapon = new WeaponData(100, 0, 20.0f, 20.0f, null,null);
         purchasedWeapons.Add(InitWeapon);
 
     }

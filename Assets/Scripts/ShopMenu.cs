@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
 public struct WeaponData
@@ -10,66 +11,109 @@ public struct WeaponData
     public int price;
     public float fireRate;
     public float damage;
-    // icon
+    public Sprite icon; 
 
-    public WeaponData(int ID, int iPrice, float fFireRate, float fDamage)
+    public GameObject weaponPrefab;
+    
+
+    public WeaponData(int ID, int iPrice, float fFireRate, float fDamage, Sprite iIcon,GameObject wPrefab)
     {
         uniqueID = ID;
         price = iPrice;
         fireRate = fFireRate;
         damage = fDamage;
+        icon = iIcon;
+        weaponPrefab = wPrefab;
+        
+        
     }
 };
 
+
 public class ShopMenu : MonoBehaviour
 {
-    public static ShopMenu instance; 
-    public GameObject shopMenu; 
-    public int goldAmount = 1000;
-
+    public static ShopMenu instance;
+    public GameObject shopMenu;
+    public TextMeshProUGUI goldText;
+    public Button[] weaponPurchaseButtons;
+    public Image[] weaponImages;
     public WeaponData[] allWeapons;
 
-    void Awake() 
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            shopMenu.SetActive(false); 
+            shopMenu.SetActive(false);
         }
         else if (instance != this)
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
-    
-    
+
+    private void Start()
+    {
+        UpdateGoldAmount();
+        InitializeShopMenu();
+    }
 
     public void ToggleShopMenu()
     {
-        
         shopMenu.SetActive(!shopMenu.activeSelf);
-        
         PlayerController.instance.canMove = !shopMenu.activeSelf;
+        UpdateShopMenu();
     }
 
-    public void RequestBuy(int WeaponID)
+    public void RequestBuy(int weaponIndex)
     {
-        Debug.Log("request buy weapon " + WeaponID);
-        for(int i = 0; i < allWeapons.Length; ++i)
+        if (weaponIndex >= 0 && weaponIndex < allWeapons.Length)
         {
-            if(allWeapons[i].uniqueID == WeaponID)
+            WeaponData selectedWeapon = allWeapons[weaponIndex];
+            if (PlayerController.instance.goldAmount >= selectedWeapon.price)
             {
-                Debug.Log("find request weapon:" + allWeapons[i].price);
-
-                if(allWeapons[i].price <= goldAmount)
-                {
-                    goldAmount -= allWeapons[i].price;
-                    PlayerController.instance.OnWeaponPurchased(allWeapons[i]);
-                }
-                return;
+                PlayerController.instance.SpendGold(selectedWeapon.price);
+                PlayerController.instance.OnWeaponPurchased(selectedWeapon);
+                UpdateShopMenu();
+            }
+            else
+            {
+                Debug.Log("Not enough gold to buy weapon.");
             }
         }
+        else
+        {
+            Debug.Log("Weapon index out of range.");
+        }
+    }
 
-        Debug.Log("failed to find request weapon");
+    private void UpdateGoldAmount()
+    {
+        goldText.text = "GoldAmount: " + PlayerController.instance.goldAmount.ToString();
+    }
+
+    private void InitializeShopMenu()
+    {
+        
+        for (int i = 0; i < allWeapons.Length; i++)
+        {
+            weaponImages[i].sprite = allWeapons[i].icon;
+            int index = i; 
+            weaponPurchaseButtons[i].onClick.AddListener(() => RequestBuy(index));
+        }
+    }
+
+    private void UpdateShopMenu()
+    {
+        
+        for (int i = 0; i < allWeapons.Length; i++)
+        {
+            WeaponData weapon = allWeapons[i];
+            bool isPurchased = PlayerController.instance.purchasedWeapons.Contains(weapon);
+            weaponPurchaseButtons[i].interactable = !isPurchased && PlayerController.instance.goldAmount >= weapon.price;
+        }
+
+        
+        UpdateGoldAmount();
     }
 }
