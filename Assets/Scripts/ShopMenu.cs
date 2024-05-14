@@ -38,6 +38,7 @@ public class ShopMenu : MonoBehaviour
     public Button[] weaponPurchaseButtons;
     public Image[] weaponImages;
     public WeaponData[] allWeapons;
+    public Button exitButton;
 
     private void Awake()
     {
@@ -50,7 +51,11 @@ public class ShopMenu : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        exitButton.onClick.AddListener(CloseShopMenu);
     }
+
+
+    
 
     private void Start()
     {
@@ -97,9 +102,10 @@ public class ShopMenu : MonoBehaviour
         
         for (int i = 0; i < allWeapons.Length; i++)
         {
-            weaponImages[i].sprite = allWeapons[i].icon;
+            //weaponImages[i].sprite = allWeapons[i].icon;
             int index = i; 
             weaponPurchaseButtons[i].onClick.AddListener(() => RequestBuy(index));
+            
         }
     }
 
@@ -111,9 +117,16 @@ public class ShopMenu : MonoBehaviour
             WeaponData weapon = allWeapons[i];
             bool isPurchased = PlayerController.instance.purchasedWeapons.Contains(weapon);
             weaponPurchaseButtons[i].interactable = !isPurchased && PlayerController.instance.goldAmount >= weapon.price;
+
         }
 
         
         UpdateGoldAmount();
     }
+     public void CloseShopMenu()
+    {
+        shopMenu.SetActive(false);
+        PlayerController.instance.canMove = true;  
+    }
+
 }

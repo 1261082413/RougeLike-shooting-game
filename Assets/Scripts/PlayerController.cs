@@ -43,8 +43,13 @@ public class PlayerController : MonoBehaviour
         }
 
        
-        currentWeaponObj = Instantiate(newWeaponData.weaponPrefab, weaponHolder.position, weaponHolder.rotation);
-        currentWeaponObj.transform.SetParent(weaponHolder);
+        
+        currentWeaponObj = Instantiate(newWeaponData.weaponPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        currentWeaponObj.transform.SetParent(gameObject.transform, false);
+        gunArm = currentWeaponObj.transform;
+        firePoint = currentWeaponObj.transform.GetChild(0);
+        
+
     }
 
     public void OnWeaponPurchased(WeaponData weaponInfo)
@@ -55,6 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("has weapon " + weapon.uniqueID);
         }
+        ChangeWeapon(weaponInfo);
     }
 
     public float dashSpeed = 8f, dashLength = .5f,dashCooldown = 1f, dashInvinvibility = .5f;
