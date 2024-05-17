@@ -78,6 +78,7 @@ public class ShopMenu : MonoBehaviour
             if (PlayerController.instance.goldAmount >= selectedWeapon.price)
             {
                 PlayerController.instance.SpendGold(selectedWeapon.price);
+                
                 PlayerController.instance.OnWeaponPurchased(selectedWeapon);
                 UpdateShopMenu();
             }
@@ -91,7 +92,16 @@ public class ShopMenu : MonoBehaviour
             Debug.Log("Weapon index out of range.");
         }
     }
+public void RequestBuyItems(int price)
+{
+    if (PlayerController.instance.goldAmount >= price)
+            {
+                PlayerController.instance.SpendGold(price);
+                PlayerHealthController.instance.addHealth(10);
+            }
+                
 
+}
     private void UpdateGoldAmount()
     {
         goldText.text = "GoldAmount: " + PlayerController.instance.goldAmount.ToString();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Attack
 {
@@ -30,10 +31,13 @@ namespace Attack
 
         private enum EnemyState { Idle, Patrolling, Chasing, Attacking }
         private EnemyState currentState = EnemyState.Idle;
+        private UnityEngine.AI.NavMeshAgent my_agent;
 
         void Start()
         {
-            // Initialize patrol destination or other variables if needed
+           my_agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+           my_agent.updateRotation = false;
+           my_agent.updateUpAxis = false;
         }
 
         void Update()
@@ -68,9 +72,8 @@ namespace Attack
 
         void ChasePlayer()
         {
-            moveDirection = PlayerController.instance.transform.position - transform.position;
-            moveDirection.Normalize();
-            theRB.MovePosition(transform.position + moveDirection * speed * Time.deltaTime);
+            my_agent.SetDestination(PlayerController.instance.transform.position);
+            //my_agent.isStopped = true;
         }
 
         void AttackPlayer()
@@ -78,7 +81,7 @@ namespace Attack
             if (attackComponent != null)
             {
                 attackComponent.HandleAttack(shouldShoot);
-                AudioManager.instance.PlaySFX(14);
+                //AudioManager.instance.PlaySFX(14);
             }
             else
             {

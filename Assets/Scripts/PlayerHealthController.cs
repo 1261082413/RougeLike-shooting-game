@@ -16,6 +16,8 @@ public class PlayerHealthController : MonoBehaviour
 
     private float invincCount;
 
+    
+
     private void Awake()
     {
         instance = this;
@@ -43,6 +45,15 @@ public class PlayerHealthController : MonoBehaviour
 
             }
         }
+    }
+
+    public void addHealth(int healthAmount)
+    {
+        currentHealth += healthAmount;
+        currentHealth = (int)Mathf.Min(currentHealth,maxHealth);
+        UIController.instance.healthSlider.value = currentHealth;
+        UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+
     }
     public void DamagePlayer()
     {

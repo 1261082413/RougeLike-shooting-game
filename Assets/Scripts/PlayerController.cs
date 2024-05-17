@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     public GameObject currentWeaponObj; 
     public Transform weaponHolder; 
 
+    public WeaponData initWeapon;
+
     public void ChangeWeapon(WeaponData newWeaponData)
     {
         if(currentWeaponObj != null)
@@ -101,8 +103,7 @@ public class PlayerController : MonoBehaviour
 
         activeMoveSpeed = moveSpeed;
 
-        WeaponData InitWeapon = new WeaponData(100, 0, 20.0f, 20.0f, null,null);
-        purchasedWeapons.Add(InitWeapon);
+        OnWeaponPurchased(initWeapon);
 
     }
 

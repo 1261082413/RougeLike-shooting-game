@@ -38,8 +38,9 @@ public class AudioManager : MonoBehaviour
     }
     public void PlaySFX(int sfxToPlay)
     {
-        sfx[sfxToPlay].Stop();
-        sfx[sfxToPlay].Play();
+        
+        //sfx[sfxToPlay].Stop();
+        //sfx[sfxToPlay].Play();
 
     }
 }
